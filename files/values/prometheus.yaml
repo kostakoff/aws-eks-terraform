@@ -1,0 +1,18 @@
+server:
+  ingress:
+    enabled: true
+    hosts:
+      - "prometheus.${domain}"
+    ingressClassName: internal-nginx
+    annotations:
+      cert-manager.io/cluster-issuer: selfsigned-cluster-issuer
+    tls:
+      - secretName: prometheus-server-certs
+        hosts:
+          - "prometheus.${domain}"
+  persistentVolume:
+    storageClass: gp2
+
+alertmanager:
+  persistence:
+    storageClass: gp2

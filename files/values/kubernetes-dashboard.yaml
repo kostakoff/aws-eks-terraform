@@ -1,0 +1,11 @@
+app:
+  ingress:
+    enabled: true
+    hosts:
+      - ${ingress_host}
+    ingressClassName: internal-nginx
+    tls:
+      enabled: true
+    issuer:
+      name: selfsigned-cluster-issuer
+      scope: cluster
