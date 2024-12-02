@@ -14,7 +14,7 @@ resource "helm_release" "cert-manager" {
 
   depends_on = [
     aws_eks_node_group.general,
-    helm_release.internal_nginx
+    helm_release.internal-nginx
   ]
 }
 

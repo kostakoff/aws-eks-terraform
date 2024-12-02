@@ -14,7 +14,7 @@ resource "helm_release" "kubernetes-dashboard" {
   ]
 
   depends_on = [ 
-    helm_release.internal_nginx,
+    helm_release.internal-nginx,
     helm_release.cert-manager
   ]
 }

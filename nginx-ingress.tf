@@ -1,4 +1,4 @@
-resource "helm_release" "internal_nginx" {
+resource "helm_release" "internal-nginx" {
   name = "internal"
   repository       = "https://kubernetes.github.io/ingress-nginx"
   chart            = "ingress-nginx"
@@ -18,7 +18,7 @@ data "aws_lb" "nginx-ingress" {
   }
 
   depends_on = [
-    helm_release.internal_nginx
+    helm_release.internal-nginx
   ]
 }
 

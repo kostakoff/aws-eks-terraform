@@ -12,7 +12,8 @@ resource "helm_release" "prometheus" {
   ]
 
   depends_on = [
-    helm_release.internal_nginx,
+    helm_release.metrics-server,
+    helm_release.internal-nginx,
     helm_release.cert-manager
   ]
 }
