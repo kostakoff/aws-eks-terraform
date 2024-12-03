@@ -1,4 +1,27 @@
-server:
+alertmanager:
+  ingress:
+    enabled: true
+    hosts:
+      - "alertmanager.${domain}"
+    ingressClassName: internal-nginx
+    annotations:
+      cert-manager.io/cluster-issuer: selfsigned-cluster-issuer
+    tls:
+      - secretName: alertmanager-server-certs
+        hosts:
+          - "alertmanager.${domain}"
+  alertmanagerSpec:
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: gp2
+          accessModes:
+          - ReadWriteOnce
+          resources:
+            requests:
+              storage: 5Gi
+
+prometheus:
   ingress:
     enabled: true
     hosts:
@@ -10,9 +33,35 @@ server:
       - secretName: prometheus-server-certs
         hosts:
           - "prometheus.${domain}"
-  persistentVolume:
-    storageClass: gp2
+  prometheusSpec:
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: gp2
+          accessModes:
+          - ReadWriteOnce
+          resources:
+            requests:
+              storage: 5Gi
 
-alertmanager:
+grafana:
+  ingress:
+    enabled: true
+    hosts:
+      - "grafana.${domain}"
+    ingressClassName: internal-nginx
+    annotations:
+      cert-manager.io/cluster-issuer: selfsigned-cluster-issuer
+    tls:
+      - secretName: grafana-server-certs
+        hosts:
+          - "grafana.${domain}"
   persistence:
-    storageClass: gp2
+    enabled: true
+    type: statefulset
+    storageClassName: gp2
+    accessModes:
+    - ReadWriteOnce
+    size: 5Gi
+    finalizers:
+    - kubernetes.io/pvc-protection
