@@ -1,4 +1,6 @@
-# aws-terraform-library
+# aws eks terraform
+
+![Deploy diagram](./Diagram.jpg)
 
 ## cli examples
 - terraform init

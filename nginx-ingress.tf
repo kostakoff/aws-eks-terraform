@@ -8,7 +8,9 @@ resource "helm_release" "internal-nginx" {
 
   values = [file("${path.module}/files/values/nginx-ingress.yaml")]
 
-  depends_on = [helm_release.aws-lbc]
+  depends_on = [
+    helm_release.aws-lbc
+  ]
 }
 
 data "aws_lb" "nginx-ingress" {
